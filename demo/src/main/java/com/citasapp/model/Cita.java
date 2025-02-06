@@ -22,15 +22,17 @@ public class Cita {
     @Column(name = "fecha_cita", nullable = true)
     private LocalDateTime fechaCita;
 
+    //Clinica id
+
     @Column(nullable = false)
-    private String condicion;
+    private String condicion; // se llamara prioridad y ssera otra tabla
 
     @Column(name = "nombre_paciente", nullable = true)
-    private String nombrePaciente;
+    private String nombrePaciente; // crear modelo de paciente y meter el id aqui
 
     @Column(nullable = true)
-    private Integer edad;  // Cambiado a Integer para representar la edad correctamente
+    private Integer edad;  // quitar y meter en modelo de paciebt
 
     @Column(nullable = true, length = 500)
-    private String motivo;
+    private String motivo; // se va para detalle cita
 }
