@@ -3,12 +3,11 @@ package com.citasapp.service.db;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.validator.group.GroupSequenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.citasapp.model.Cita;
+import com.citasapp.model.SQL.Cita;
 import com.citasapp.repository.CitaRepository;
 import com.citasapp.service.ICitasService;
 
@@ -45,9 +44,6 @@ public class CitaServiceJPA implements ICitasService {
             Cita citaBD = citaOptional.orElseThrow();
             citaBD.setNombreMedico(cita.getNombreMedico());
             citaBD.setFechaCita(cita.getFechaCita());
-            citaBD.setCondicion(cita.getCondicion());
-            citaBD.setNombrePaciente(cita.getNombrePaciente());
-            citaBD.setEdad(cita.getEdad());
             citaBD.setMotivo(cita.getMotivo());
             citaResult = this.save(citaBD);
         } 

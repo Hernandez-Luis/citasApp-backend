@@ -1,4 +1,4 @@
-package com.citasapp.model;
+package com.citasapp.model.SQL;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
@@ -14,7 +14,7 @@ public class Cita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_cita;
 
     @Column(name = "nombre_medico", nullable = true)
     private String nombreMedico;
@@ -22,17 +22,19 @@ public class Cita {
     @Column(name = "fecha_cita", nullable = true)
     private LocalDateTime fechaCita;
 
-    //Clinica id
+    @ManyToOne
+    @JoinColumn(name = "id_clinica", nullable = false)
+    private Clinica clinica;
 
-    @Column(nullable = false)
-    private String condicion; // se llamara prioridad y ssera otra tabla
+    @ManyToOne
+    @JoinColumn(name = "id_prioridad", nullable = false)
+    private Prioridad prioridad;
 
-    @Column(name = "nombre_paciente", nullable = true)
-    private String nombrePaciente; // crear modelo de paciente y meter el id aqui
+    @ManyToOne
+    @JoinColumn(name = "id_paciente", nullable = false)
+    private Paciente paciente;
 
-    @Column(nullable = true)
-    private Integer edad;  // quitar y meter en modelo de paciebt
 
     @Column(nullable = true, length = 500)
-    private String motivo; // se va para detalle cita
+    private String motivo;
 }

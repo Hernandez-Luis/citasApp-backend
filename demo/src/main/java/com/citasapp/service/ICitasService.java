@@ -3,7 +3,7 @@ package com.citasapp.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.citasapp.model.Cita;
+import com.citasapp.model.SQL.Cita;
 
 public interface ICitasService {
     List<Cita> findAll();

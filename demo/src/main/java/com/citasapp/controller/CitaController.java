@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.citasapp.model.Cita;
+import com.citasapp.model.SQL.Cita;
 import com.citasapp.service.ICitasService;
 import jakarta.validation.Valid;
 import lombok.val;
