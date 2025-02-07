@@ -30,10 +30,22 @@ public class CitaServiceJPA implements ICitasService {
     }
 
     @Override
-    @Transactional
-    public Cita save(Cita cita) {
+    public Cita createCita(Cita cita) {
+        // Obtener el doctor por el ID de MongoDB
+        Optional<Doctores> doctor = doctorRepository.findById(cita.getIdDoctorMongo());
+
+        if (doctor.isPresent()) {
+            // Si el doctor existe, se puede proceder con la cita
+            cita.setNombreMedico(doctor.get().getNombre_doctor());
+        } else {
+            // Si no se encuentra el doctor, devolver error o manejar según la lógica
+            throw new RuntimeException("Doctor no encontrado con el ID proporcionado");
+        }
+
+        // Guardar la cita en la base de datos SQL
         return citaRepository.save(cita);
     }
+
 
     @Override
     @Transactional(readOnly = true)
@@ -72,5 +84,7 @@ public class CitaServiceJPA implements ICitasService {
     public void remove(Long id) {
         citaRepository.deleteById(id);
     }
+
+    
 
 }

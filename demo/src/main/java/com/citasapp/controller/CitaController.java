@@ -38,12 +38,13 @@ public class CitaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create (@Valid @RequestBody Cita cita, BindingResult result){
-        if(result.hasErrors()){
-            return validation(result);
+    public ResponseEntity<Cita> create(@RequestBody Cita cita) {
+        try {
+            Cita nuevaCita = iCitasService.createCita(cita);
+            return new ResponseEntity<>(nuevaCita, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        Cita citaCreated = iCitasService.save(cita);
-        return ResponseEntity.status(HttpStatus.CREATED).body(citaCreated);
     }
 
 

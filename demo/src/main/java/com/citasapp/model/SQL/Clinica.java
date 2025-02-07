@@ -2,6 +2,9 @@ package com.citasapp.model.SQL;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +24,6 @@ public class Clinica {
     private String ubicacion;
 
     @OneToMany(mappedBy = "clinica", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Cita> citas;
 }

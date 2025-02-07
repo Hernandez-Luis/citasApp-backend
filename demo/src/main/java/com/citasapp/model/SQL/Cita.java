@@ -3,7 +3,8 @@ package com.citasapp.model.SQL;
 import java.time.LocalDateTime;
 
 import com.citasapp.model.NoSQL.Doctores;
-import com.citasapp.model.NoSQL.Prioridad;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +42,4 @@ public class Cita {
     @Column(name = "id_doctor_mongo", nullable = true)
     private String idDoctorMongo;
 
-    @Column(name = "id_prioridad", nullable = false)
-    private Prioridad prioridad;
 }

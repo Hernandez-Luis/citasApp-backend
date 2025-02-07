@@ -10,7 +10,7 @@ public interface ICitasService {
     List<Cita> findAll();
     Optional<CitaDTO> findByIdDto(Long id);
     //Optional<Cita> findById(Long id);
-    Cita save (Cita cita);
+    Cita createCita (Cita cita);
     Optional<Cita> update(Cita cita, Long id);
     void remove (Long id);
 } 
