@@ -7,14 +7,14 @@ import lombok.*;
 
 @Data
 @Entity
-@Table(name = "Pacientes")
+@Table(name = "pacientes")
 @ToString
 public class Paciente {
     
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_paciente;
+    private Long id;
 
-    @Column(name = "nombrePaciente", nullable = false)
+    @Column(name = "nombre_paciente", nullable = false)
     private String nombrePaciente;
 
     @Column(name = "edad", nullable = false)
@@ -23,10 +23,10 @@ public class Paciente {
     @Column(name = "peso", nullable = true)
     private double peso;
 
-    @Column(name = "informacionAdicional", nullable = true)
+    @Column(name = "informacion_adicional", nullable = true)
     private String informacionAdicional;
 
-    @OneToMany(mappedBy = "clinica", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cita> citas;
 
 }
