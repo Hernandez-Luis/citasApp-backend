@@ -23,7 +23,7 @@ import com.citasapp.service.IPacienteService;
 
 import jakarta.validation.Valid;
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("/pacientes")
 public class PacienteController {
      @Autowired
     private IPacienteService iPacienteService;
