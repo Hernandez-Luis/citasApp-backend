@@ -1,15 +1,10 @@
 package com.citasapp.controller;
 
-import java.lang.StackWalker.Option;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.naming.Binding;
-
-import org.apache.catalina.connector.Response;
-import org.slf4j.helpers.Reporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import com.citasapp.model.SQL.Cita;
 import com.citasapp.service.ICitasService;
 import jakarta.validation.Valid;
-import lombok.val;
 
 
 
