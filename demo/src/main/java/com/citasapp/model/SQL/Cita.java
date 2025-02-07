@@ -1,10 +1,7 @@
 package com.citasapp.model.SQL;
 
-import java.time.LocalDateTime;
-
-import com.citasapp.model.NoSQL.Doctores;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,17 +22,20 @@ public class Cita {
     private String nombreMedico;
 
     @Column(name = "fecha_cita", nullable = true)
-    private LocalDateTime fechaCita;
+    private String fechaCita;
+
+    @Column(name = "hora",nullable = true)
+    private String hora;
 
     @Column(nullable = true, length = 500)
     private String motivo;
 
     @ManyToOne
-    @JoinColumn(name = "id_clinica", nullable = false)
+    @JoinColumn(name = "id_clinica", nullable = true)
     private Clinica clinica;
 
     @ManyToOne
-    @JoinColumn(name = "id_paciente", nullable = false)
+    @JoinColumn(name = "id_paciente", nullable = true)
     private Paciente paciente;
 
 

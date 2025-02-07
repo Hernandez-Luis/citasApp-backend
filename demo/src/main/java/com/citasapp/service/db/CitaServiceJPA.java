@@ -71,9 +71,9 @@ public class CitaServiceJPA implements ICitasService {
         return citaRepository.findById(id).map(citaBD -> {
             citaBD.setNombreMedico(cita.getNombreMedico());
             citaBD.setFechaCita(cita.getFechaCita());
+            citaBD.setHora(cita.getHora());
             citaBD.setMotivo(cita.getMotivo());
             citaBD.setClinica(cita.getClinica());
-            // citaBD.setPrioridad(cita.getPrioridad());
             citaBD.setPaciente(cita.getPaciente());
             citaBD.setIdDoctorMongo(cita.getIdDoctorMongo());
             return Optional.of(citaRepository.save(citaBD));
