@@ -3,12 +3,12 @@ package com.citasapp.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.citasapp.model.SQL.Prioridad;
+import com.citasapp.model.NoSQL.Prioridad;
 
 public interface IPrioridadService {
-    List<Prioridad> findAll();
-    Optional<Prioridad> findById(Long id);
+    Iterable<Prioridad> findAll();
+    Optional<Prioridad> findById(String id);
     Prioridad save (Prioridad prioridad);
-    Optional<Prioridad> update(Prioridad prioridad, Long id);
-    void remove (Long id);
+    Optional<Prioridad> update(Prioridad prioridad, String id);
+    void remove (String id);
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.citasapp.model.SQL.Prioridad;
+import com.citasapp.model.NoSQL.Prioridad;
 import com.citasapp.service.IPrioridadService;
 
 import jakarta.validation.Valid;
@@ -31,12 +31,12 @@ public class PrioridadController {
     private IPrioridadService iPrioridadService;
 
     @GetMapping
-    public List<Prioridad> list() {
+    public Iterable<Prioridad> list() {
         return iPrioridadService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCitaById(@PathVariable Long id) {
+    public ResponseEntity<?> getCitaById(@PathVariable String id) {
         Optional<Prioridad> prioridadOptional = iPrioridadService.findById(id);
         if(prioridadOptional.isPresent()){
             return ResponseEntity.ok(prioridadOptional.orElseThrow());
@@ -53,7 +53,7 @@ public class PrioridadController {
         return ResponseEntity.status(HttpStatus.CREATED).body(prioridadCreated);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@Valid @RequestBody Prioridad prioridad, BindingResult result, @PathVariable Long id){
+    public ResponseEntity<?> update (@Valid @RequestBody Prioridad prioridad, BindingResult result, @PathVariable String id){
         if(result.hasErrors()){
             return validation(result);
         }
@@ -64,7 +64,7 @@ public class PrioridadController {
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> remove (@PathVariable Long id){
+    public ResponseEntity<?> remove (@PathVariable String id){
         Optional<Prioridad> prioridadOptional = iPrioridadService.findById(id);
         if(prioridadOptional.isPresent()){
             iPrioridadService.remove(id);

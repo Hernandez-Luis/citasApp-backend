@@ -1,6 +1,10 @@
 package com.citasapp.model.SQL;
 
 import java.time.LocalDateTime;
+
+import com.citasapp.model.NoSQL.Doctores;
+import com.citasapp.model.NoSQL.Prioridad;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,19 +26,21 @@ public class Cita {
     @Column(name = "fecha_cita", nullable = true)
     private LocalDateTime fechaCita;
 
+    @Column(nullable = true, length = 500)
+    private String motivo;
+
     @ManyToOne
     @JoinColumn(name = "id_clinica", nullable = false)
     private Clinica clinica;
-
-    @ManyToOne
-    @JoinColumn(name = "id_prioridad", nullable = false)
-    private Prioridad prioridad;
 
     @ManyToOne
     @JoinColumn(name = "id_paciente", nullable = false)
     private Paciente paciente;
 
 
-    @Column(nullable = true, length = 500)
-    private String motivo;
+    @Column(name = "id_doctor_mongo", nullable = true)
+    private String idDoctorMongo;
+
+    @Column(name = "id_prioridad", nullable = false)
+    private Prioridad prioridad;
 }

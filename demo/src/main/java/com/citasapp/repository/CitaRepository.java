@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.citasapp.model.SQL.Cita;
 
 @Repository
-public interface CitaRepository extends CrudRepository<Cita, Long>{
+public interface CitaRepository extends JpaRepository<Cita, Long>{
 
     
 }

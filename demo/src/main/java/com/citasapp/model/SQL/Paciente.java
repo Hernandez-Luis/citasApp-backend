@@ -20,7 +20,7 @@ import lombok.ToString;
 public class Paciente {
     
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_paciente;
 
     @Column(name = "nombre_paciente", nullable = false)
     private String nombrePaciente;

@@ -5,12 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.citasapp.model.SQL.Prioridad;
+import com.citasapp.model.NoSQL.Prioridad;
 import com.citasapp.repository.PrioridadRepository;
 import com.citasapp.service.IPrioridadService;
-
 
 @Service
 public class PrioridadServiceJPA implements IPrioridadService {
@@ -19,39 +17,33 @@ public class PrioridadServiceJPA implements IPrioridadService {
     private PrioridadRepository prioridadRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Prioridad> findAll() {
-        return (List<Prioridad>) prioridadRepository.findAll();
+    public Iterable<Prioridad> findAll() {
+        return prioridadRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Optional<Prioridad> findById(Long id) {
-        return prioridadRepository.findById(id); 
+    public Optional<Prioridad> findById(String id) {
+        return prioridadRepository.findById(id); // Cambié Long a String
     }
 
     @Override
-    @Transactional
     public Prioridad save(Prioridad prioridad) {
         return prioridadRepository.save(prioridad);
     }
 
     @Override
-    @Transactional
-    public Optional<Prioridad> update(Prioridad prioridad, Long id) {
+    public Optional<Prioridad> update(Prioridad prioridad, String id) {  // Cambié Long a String
         Optional<Prioridad> prioridadOptional = this.findById(id);
-        Prioridad prioridadResult = null;
         if(prioridadOptional.isPresent()){
-            Prioridad prioridadBD = prioridadOptional.orElseThrow();
+            Prioridad prioridadBD = prioridadOptional.get();
             prioridadBD.setPrioridad(prioridad.getPrioridad());
-            prioridadResult= this.save(prioridadBD);
-        } 
-        return Optional.ofNullable(prioridadResult);
+            return Optional.of(prioridadRepository.save(prioridadBD));
+        }
+        return Optional.empty();
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(String id) {  // Cambié Long a String
         prioridadRepository.deleteById(id);
     }
-    
 }

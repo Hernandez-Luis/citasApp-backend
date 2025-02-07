@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import com.citasapp.DTO.CitaDTO;
 import com.citasapp.model.SQL.Cita;
 import com.citasapp.service.ICitasService;
 import jakarta.validation.Valid;
@@ -29,7 +30,7 @@ public class CitaController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> getCitaById(@PathVariable Long id) {
-        Optional<Cita> citaOptional = iCitasService.findById(id);
+        Optional<CitaDTO> citaOptional = iCitasService.findByIdDto(id);
         if(citaOptional.isPresent()){
             return ResponseEntity.ok(citaOptional.orElseThrow());
         }
@@ -60,7 +61,7 @@ public class CitaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remove (@PathVariable Long id){
-        Optional<Cita> citaOptional = iCitasService.findById(id);
+        Optional<CitaDTO> citaOptional = iCitasService.findByIdDto(id);
         if(citaOptional.isPresent()){
             iCitasService.remove(id);
             return ResponseEntity.noContent().build();

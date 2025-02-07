@@ -12,7 +12,7 @@ import lombok.*;
 public class Clinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_clinica;
 
     @Column(name = "nombre_clinica")
     private String nombreClinica;
