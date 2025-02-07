@@ -18,57 +18,56 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.citasapp.model.SQL.Clinica;
-import com.citasapp.service.IClinicaService;
+import com.citasapp.model.SQL.Paciente;
+import com.citasapp.service.IPacienteService;
 
 import jakarta.validation.Valid;
-
 @RestController
-@RequestMapping("/clinicas")
-public class ClinicaController {
-    @Autowired
-    private IClinicaService iClinicaService;
+@RequestMapping("/paciente")
+public class PacienteController {
+     @Autowired
+    private IPacienteService iPacienteService;
 
     @GetMapping
-    public List<Clinica> list(){
-        return iClinicaService.findAll();
+    public List<Paciente> list() {
+        return iPacienteService.findAll();
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getCitaById(@PathVariable Long id) {
-        Optional<Clinica> clinicaOptional = iClinicaService.findById(id);
-        if(clinicaOptional.isPresent()){
-            return ResponseEntity.ok(clinicaOptional.orElseThrow());
+        Optional<Paciente> pacienteOptional = iPacienteService.findById(id);
+        if(pacienteOptional.isPresent()){
+            return ResponseEntity.ok(pacienteOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
     }
-    
+
     @PostMapping
-    public ResponseEntity<?> create (@Valid @RequestBody Clinica clinica, BindingResult result){
+    public ResponseEntity<?> create (@Valid @RequestBody Paciente paciente, BindingResult result){
         if(result.hasErrors()){
             return validation(result);
         }
-        Clinica clinicaCreated = iClinicaService.save(clinica);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clinicaCreated);
+        Paciente pacienteCreated = iPacienteService.save(paciente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pacienteCreated);
     }
 
+
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@Valid @RequestBody Clinica clinica, BindingResult result, @PathVariable Long id){
+    public ResponseEntity<?> update (@Valid @RequestBody Paciente paciente, BindingResult result, @PathVariable Long id){
         if(result.hasErrors()){
             return validation(result);
         }
-        Optional<Clinica> clinicaOptional = iClinicaService.update(clinica,id);
-        if(clinicaOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.CREATED).body(clinicaOptional.get());
+        Optional<Paciente> pacienteOptional = iPacienteService.update(paciente,id);
+        if(pacienteOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(pacienteOptional.get());
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remove (@PathVariable Long id){
-        Optional<Clinica> clinicaOptional = iClinicaService.findById(id);
-        if(clinicaOptional.isPresent()){
-            iClinicaService.remove(id);
+        Optional<Paciente> pacienteOptional = iPacienteService.findById(id);
+        if(pacienteOptional.isPresent()){
+            iPacienteService.remove(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.badRequest().build();

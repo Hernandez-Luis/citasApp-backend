@@ -18,67 +18,65 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.citasapp.model.SQL.Clinica;
-import com.citasapp.service.IClinicaService;
+import com.citasapp.model.SQL.Prioridad;
+import com.citasapp.service.IPrioridadService;
 
 import jakarta.validation.Valid;
 
+
 @RestController
-@RequestMapping("/clinicas")
-public class ClinicaController {
+@RequestMapping("/prioridades")
+public class PrioridadController {
     @Autowired
-    private IClinicaService iClinicaService;
+    private IPrioridadService iPrioridadService;
 
     @GetMapping
-    public List<Clinica> list(){
-        return iClinicaService.findAll();
+    public List<Prioridad> list() {
+        return iPrioridadService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCitaById(@PathVariable Long id) {
-        Optional<Clinica> clinicaOptional = iClinicaService.findById(id);
-        if(clinicaOptional.isPresent()){
-            return ResponseEntity.ok(clinicaOptional.orElseThrow());
+        Optional<Prioridad> prioridadOptional = iPrioridadService.findById(id);
+        if(prioridadOptional.isPresent()){
+            return ResponseEntity.ok(prioridadOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
     }
-    
-    @PostMapping
-    public ResponseEntity<?> create (@Valid @RequestBody Clinica clinica, BindingResult result){
+
+     @PostMapping
+    public ResponseEntity<?> create (@Valid @RequestBody Prioridad clinica, BindingResult result){
         if(result.hasErrors()){
             return validation(result);
         }
-        Clinica clinicaCreated = iClinicaService.save(clinica);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clinicaCreated);
+        Prioridad prioridadCreated = iPrioridadService.save(clinica);
+        return ResponseEntity.status(HttpStatus.CREATED).body(prioridadCreated);
     }
-
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@Valid @RequestBody Clinica clinica, BindingResult result, @PathVariable Long id){
+    public ResponseEntity<?> update (@Valid @RequestBody Prioridad prioridad, BindingResult result, @PathVariable Long id){
         if(result.hasErrors()){
             return validation(result);
         }
-        Optional<Clinica> clinicaOptional = iClinicaService.update(clinica,id);
-        if(clinicaOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.CREATED).body(clinicaOptional.get());
+        Optional<Prioridad> prioridadOptional = iPrioridadService.update(prioridad,id);
+        if(prioridadOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(prioridadOptional.get());
         }
         return ResponseEntity.notFound().build();
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remove (@PathVariable Long id){
-        Optional<Clinica> clinicaOptional = iClinicaService.findById(id);
-        if(clinicaOptional.isPresent()){
-            iClinicaService.remove(id);
+        Optional<Prioridad> prioridadOptional = iPrioridadService.findById(id);
+        if(prioridadOptional.isPresent()){
+            iPrioridadService.remove(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.badRequest().build();
     }
-
     private ResponseEntity<?> validation(BindingResult result){
         Map<String,String> errors = new HashMap<>();
         result.getFieldErrors().forEach(err -> {
             errors.put(err.getField(), err.getDefaultMessage());
         }); 
         return ResponseEntity.badRequest().body(errors);
-    }
+    } 
 }
