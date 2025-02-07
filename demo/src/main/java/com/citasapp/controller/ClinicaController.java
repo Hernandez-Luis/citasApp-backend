@@ -35,14 +35,14 @@ public class ClinicaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCitaById(@PathVariable Long id) {
-        Optional<Clinica> clinicaOptional = iClinicaService.findById(id);
+    public ResponseEntity<?> getClinicaById(@PathVariable Long id){
+        Optional <Clinica> clinicaOptional = iClinicaService.findById(id);
         if(clinicaOptional.isPresent()){
             return ResponseEntity.ok(clinicaOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
     }
-    
+
     @PostMapping
     public ResponseEntity<?> create (@Valid @RequestBody Clinica clinica, BindingResult result){
         if(result.hasErrors()){
