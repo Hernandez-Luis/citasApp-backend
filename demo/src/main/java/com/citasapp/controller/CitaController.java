@@ -54,16 +54,17 @@ public class CitaController {
 
     @PostMapping
     public ResponseEntity<?> crearCita(@RequestBody Cita cita) {
-        DoctoresController doctoresController;
         Optional<Paciente> paciente = pacienteRepository.findById(cita.getPaciente().getId_paciente());
         Optional<Clinica> clinica = clinicaRepository.findById(cita.getClinica().getId_clinica());
 
-        if (paciente.isPresent() && clinica.isPresent()) {
+        try {
             cita.setPaciente(paciente.get());
             cita.setClinica(clinica.get());
             Cita nuevaCita = citaRepository.save(cita);
             return ResponseEntity.ok(nuevaCita);
-        } else {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body("Paciente o Clínica no encontrados");
         }
     }

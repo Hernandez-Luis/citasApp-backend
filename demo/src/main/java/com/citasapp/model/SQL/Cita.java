@@ -28,6 +28,9 @@ public class Cita {
     @Column(name = "fecha_cita", nullable = true)
     private String fechaCita;
 
+    @Column(name = "hora", nullable = true)
+    private String hora;
+
     @Column(nullable = true, length = 500)
     private String motivo;
 
