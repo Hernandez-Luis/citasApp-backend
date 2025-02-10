@@ -12,7 +12,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.citasapp.DTO.CitaDTO;
+import com.citasapp.model.NoSQL.Doctores;
 import com.citasapp.model.SQL.Cita;
+import com.citasapp.model.SQL.Clinica;
+import com.citasapp.model.SQL.Paciente;
+import com.citasapp.repository.CitaRepository;
+import com.citasapp.repository.ClinicaRepository;
+import com.citasapp.repository.PacienteRepository;
 import com.citasapp.service.ICitasService;
 import jakarta.validation.Valid;
 
@@ -23,6 +29,15 @@ import jakarta.validation.Valid;
 public class CitaController {
     @Autowired
     private ICitasService iCitasService;
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private ClinicaRepository clinicaRepository;
+
+    @Autowired
+    private CitaRepository citaRepository;
 
     @GetMapping
     public List<Cita> list() {
@@ -38,14 +53,21 @@ public class CitaController {
     }
 
     @PostMapping
-    public ResponseEntity<Cita> create(@RequestBody Cita cita) {
-        try {
-            Cita nuevaCita = iCitasService.createCita(cita);
-            return new ResponseEntity<>(nuevaCita, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    public ResponseEntity<?> crearCita(@RequestBody Cita cita) {
+        DoctoresController doctoresController;
+        Optional<Paciente> paciente = pacienteRepository.findById(cita.getPaciente().getId_paciente());
+        Optional<Clinica> clinica = clinicaRepository.findById(cita.getClinica().getId_clinica());
+
+        if (paciente.isPresent() && clinica.isPresent()) {
+            cita.setPaciente(paciente.get());
+            cita.setClinica(clinica.get());
+            Cita nuevaCita = citaRepository.save(cita);
+            return ResponseEntity.ok(nuevaCita);
+        } else {
+            return ResponseEntity.badRequest().body("Paciente o Clínica no encontrados");
         }
     }
+
 
 
     @PutMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.citasapp.model.SQL;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.citasapp.model.NoSQL.Doctores;
@@ -25,7 +26,7 @@ public class Cita {
     private String nombreMedico;
 
     @Column(name = "fecha_cita", nullable = true)
-    private LocalDateTime fechaCita;
+    private String fechaCita;
 
     @Column(nullable = true, length = 500)
     private String motivo;
